@@ -1,18 +1,42 @@
 package fizzbuzz
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
-func Print(count int) {
+func Generate(count int) ([]string, error) {
+	if count <= 0 {
+		return nil, fmt.Errorf("fizzbuzz: Negative fizzbuzz count provided")
+	}
+
+	fizzbuzz := make([]string, count)
+
+	var output string
 	for i := 1; i <= count; i++ {
 		switch {
 		case i%15 == 0:
-			fmt.Println("FizzBuzz")
+			output = "FizzBuzz"
 		case i%3 == 0:
-			fmt.Println("Fizz")
+			output = "Fizz"
 		case i%5 == 0:
-			fmt.Println("Buzz")
+			output = "Buzz"
 		default:
-			fmt.Println(i)
+			output = string(i)
 		}
+		fizzbuzz[i] = output
+	}
+
+	return fizzbuzz, nil
+}
+
+func Print(count int) {
+	fizzbuzz, err := Generate(count)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, entry := range fizzbuzz {
+		fmt.Println(entry)
 	}
 }
