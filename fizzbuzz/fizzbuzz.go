@@ -22,9 +22,9 @@ func Generate(count int) ([]string, error) {
 		case i%5 == 0:
 			output = "Buzz"
 		default:
-			output = string(i)
+			output = fmt.Sprintf("%d", i)
 		}
-		fizzbuzz[i] = output
+		fizzbuzz[i-1] = output
 	}
 
 	return fizzbuzz, nil
